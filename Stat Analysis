@@ -1,0 +1,212 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * 
+ * Stats Anal for final Grades
+ * 
+ * @author Bridget Naylor
+ * */
+
+
+
+
+public class StatisticalAnalysis {
+	
+	public static void main ( String[] args ) {
+	
+		boolean quit = false;
+		
+		ArrayList<Integer> grades = new ArrayList<Integer>();
+		
+		populateGrades( grades );
+		
+		while ( !quit ) {
+			
+			
+			
+			displayMenu();
+			
+			int enteredInt = CheckInput.getInt();
+			
+			
+			if ( enteredInt == 1 ) {
+				System.out.print( "1 called");
+				//Display sorted grades
+				sortList( grades );
+				System.out.print( "1 called");
+				
+			} else if ( enteredInt == 2 ) {
+				
+				//Display average grade
+				
+			} else if ( enteredInt == 3 ) {
+				
+				//display max grade
+				
+			} else if ( enteredInt == 4 ) {
+				
+				//Display minimum grade
+				
+			} else if ( enteredInt == 5 ) {
+				
+				findMedian( grades );
+				
+			} else if ( enteredInt == 6 ) {
+				
+				quit = true;
+				
+			}
+			
+		}
+		
+	}
+	
+	/** construct the ArrayList, 
+	 * read in the file, 
+	 * add the grades to the ArrayList, 
+	 * and then return the list
+	 * @param empty list
+	 * @return list
+	*/
+	public static ArrayList<Integer> populateGrades ( ArrayList<Integer> list ) {
+		
+	    File file = new File("Grades"); 
+	    
+	    Scanner fileReader;
+		try {
+			
+			fileReader = new Scanner(file);
+		    while (fileReader.hasNextInt()) {
+		    	
+		    	list.add( fileReader.nextInt() );
+		    	
+		    	System.out.println( fileReader.nextInt() ); 
+		    }
+			
+		} catch ( FileNotFoundException e ) {
+			
+			//Auto-generated catch block
+			
+			e.printStackTrace();
+			System.out.println( "File not Found. Try adding a file ");
+		} 
+	    	  
+		return list;
+		
+	}
+	
+	/**
+	 * pass in the list and display the values in rows of 10 numbers
+	 * @param list
+	 * */
+	public static void displayGrades ( ArrayList list ) {
+		
+		
+		
+		for ( int i = 0; i < list.size(); i++ ) {
+			
+			if ( i % 9 == 0) {
+				
+				System.out.println( list.get( i ) );
+				
+			} else {
+				
+				System.out.print( list.get( i ) );
+				
+			}
+			
+		}
+		
+	}
+
+	
+	/**
+	 * pass in the list and sort the values from low to high
+	 * TODO: come back finish bubble sort
+	 * @param list
+	 * */
+	public static void sortList ( ArrayList list ) {
+		
+		boolean sorted = false;
+		
+		while ( !sorted ) {
+			
+			boolean changes = false;
+			
+			for (int i = 0; i < list.size(); i++ ) {
+				
+				if ((i + 1) < list.size()) {
+					break;
+				}
+				
+				int firstInt = (int)list.get( i );
+				int secondInt = (int)list.get( i + 1 );
+				int placeholder = firstInt;
+				
+				if ( firstInt > secondInt) {
+					
+					firstInt = secondInt;
+					secondInt = placeholder;
+					changes = true;
+					
+				} 
+				
+			}
+			
+			if ( !changes ) {
+				
+			}
+			
+		}
+		
+		displayGrades( list ); 
+		
+	}
+	
+	
+	/**
+	 *  pass in the list, calculate the sum of all values and return the result
+	 * @param list
+	 * @return sum of all values
+	 * */
+	public static int sumGrades ( ArrayList list ) {
+		
+		int sum = 0;
+		
+		for ( int i = 0; i < list.size(); i++) {
+			
+			sum = sum + (int)list.get( i );
+			
+		}
+		
+		return sum;
+	}
+	
+	/**
+	 *  pass in the list, find the median value of the list and return the re
+	 * @param list
+	 * @return median of all values
+	 * */
+	public static int findMedian ( ArrayList list ) {
+		
+		return 0;
+	}
+	
+	
+	/**
+	 * Displays menu
+	 * */
+	public static void displayMenu () {
+		
+		System.out.println( "1. Display Sorted Grades" );
+		System.out.println( "2. Display Average Grade " );
+		System.out.println( "3. Display Maxium Grades " );
+		System.out.println( "4. Display Minimum Grade " );
+		System.out.println( "5. Display Median Grade " );
+		System.out.println( "6. Quit " );
+		
+	}
+}
